@@ -1,0 +1,9 @@
+## template: jinja
+#!/usr/bin/env bash
+
+cat << EOF > /etc/vault.d/vault.env
+VAULT_LICENSE_PATH="/home/ubuntu/_vaultSetup/license.hclic"
+EOF
+
+sudo chown -R vault:vault /etc/vault.d
+sudo chmod -R 0644 /etc/vault.d/*

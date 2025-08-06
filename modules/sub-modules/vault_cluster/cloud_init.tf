@@ -14,10 +14,18 @@ data "cloudinit_config" "myhost" {
     })
   }
   # Fixing Systemd Unit file because of "Unknown lvalue 'StartLimitIntervalSec' in section 'Unit'" and providing VAULT_LICENSE_PATH env var for license autoloading
+  # Removing this since the apt package now includes a systemD unit file.
+  # part {
+  #   content_type = "text/x-shellscript"
+  #   content      = file("${path.module}/../templates/vault_config/systemd_vault.sh.tmpl")
+  # }
+  
+  # Since the above is disabled we need to feed the license into the vault.env file.boundary
   part {
     content_type = "text/x-shellscript"
-    content      = file("${path.module}/../templates/vault_config/systemd_vault.sh.tmpl")
-  }
+    content      = file("${path.module}/../templates/vault_config/vault_env.sh.tmpl")
+  } 
+  
   # Vault config
   part {
     content_type = "text/x-shellscript"
